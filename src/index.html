@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/output.css">
+    <title>PESAFLOW-IFRAME</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="h-full w-full py-12">
+    <div class="absolute inset-0 z-0 bg-black bg-opacity-20 backdrop-blur-sm backdrop-filter"></div>
+
+    <!-- IFRAME CONTENT -->
+    <main x-data="{ channel: 'card', open: false, error: false }"
+        class="relative border max-w-5xl mx-auto z-50  bg-white  rounded-lg border-gray-300 px-6 ">
+
+        <div class="grid grid-cols-12 ">
+            <!-- Left Side -->
+            <div class="col-span-6 border-r py-6 border-gray-200 pr-4">
+                <div class="border border-gray-200 bg-gray-50 rounded-md space-y-2 px-4 py-2">
+                    <div class="">
+                        <div class="grid grid-cols-2 gap-1 items-start justify-start">
+                            <p class="text-sm leading-tight  text-gray-500 flex-1">Description </p>
+                            <p class="text-sm leading-tight text-gray-900 w-56">Invoice payment </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="grid grid-cols-2 gap-1 items-start justify-start">
+                            <p class="text-sm leading-tight  text-gray-500 flex-1">Currency</p>
+                            <p class="text-sm leading-tight text-gray-900 w-56">Kenya Shillings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-base font-bold text-neutral-800 my-3">Select Payment method</p>
+                <hr class="-ml-6 -mr-4">
+
+                <!-- Payment Methods -->
+                <div class="space-y-4 mt-4">
+                    <!-- Wallet -->
+                    <button x-cloak x-on:click="channel = 'wallet'"
+                        :class="[channel === 'wallet' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/wallet.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Wallet , Balance KES 39,839 </p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- Card -->
+                    <button x-cloak x-on:click="channel = 'card'"
+                        :class="[channel === 'card' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <div class="flex gap-2 items-center">
+                                <img src="./assets/svg/card.svg" alt="">
+                                <img src="./assets/svg/card2.svg" alt="">
+                            </div>
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Card</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- Mpesa -->
+                    <button x-cloak x-on:click="channel = 'mpesa'"
+                        :class="[channel === 'mpesa' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/mpesa.svg" alt="">
+
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">M-pesa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- Airtel -->
+                    <button x-cloak x-on:click="channel = 'airtel'"
+                        :class="[channel === 'airtel' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/airtel.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Airtel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- EasyPay -->
+                    <button x-cloak x-on:click="channel = 'easypay'"
+                        :class="[channel === 'easypay' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/eazzypay.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">EasyPay</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- KCB Cash -->
+                    <button x-cloak x-on:click="channel = 'KCB'"
+                        :class="[channel === 'KCB' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/kcb.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">KCB Cash</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- Equity -->
+                    <button x-cloak x-on:click="channel = 'equity'"
+                        :class="[channel === 'equity' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/equity.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Equity Cash</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                    <!-- Pesalink -->
+                    <button x-cloak x-on:click="channel = 'pesalink'"
+                        :class="[channel === 'pesalink' ? 'bg-yellow-50 border-yellow-700' : 'bg-white border-gray-200 hover:bg-yellow-50']"
+                        class="px-4 py-3  border  transition-colors duration-100 rounded-lg  inline-flex gap-x-1 w-full items-start justify-start">
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/pesalink.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Pesalink</p>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <!--  -->
+                </div>
+            </div>
+
+            <!-- Right Side -->
+            <div class="col-span-6 pl-4 py-6">
+                <img src="./assets/svg/pesaflow.svg" alt="" class="mb-6">
+                <div class="grid grid-cols-2 gap-1 items-start">
+                    <div class="space-y-1">
+                        <p class="text-sm leading-tight text-gray-500">Payment REF</p>
+                        <p class="text-lg font-medium leading-normal text-gray-900">KAWUB894939</p>
+                    </div>
+                    <div class="space-y-1 text-right">
+                        <p class="text-sm leading-tight text-gray-500">Total payable </p>
+                        <p class="text-lg font-medium leading-normal text-gray-900">KES. 530</p>
+                    </div>
+                </div>
+                <!-- Different UI according to payment method selected -->
+                <div class="pt-8">
+                    <!-- WALLET UI -->
+                    <div x-cloak x-show="channel === 'wallet'">
+                        <p class="text-base font-semibold leading-7 mb-2 text-gray-900">Wallet</p>
+                        <div class="flex gap-x-3 items-center justify-start">
+                            <img src="./assets/svg/wallet.svg" alt="">
+                            <div class="flex-1">
+                                <div>
+                                    <p class="text-sm font-medium leading-tight w-full">Wallet , Balance KES 39,839 </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-5">
+                        <p class="text-sm leading-tight text-gray-500 font-medium">Summary</p>
+                        <div class="grid grid-cols-2 w-full mt-3">
+                            <p class="text-sm w-48">Amount to be deducted </p>
+                            <p class="text-sm text-right">KES. 530</p>
+                        </div>
+                        <div class="grid grid-cols-2 w-full mt-3">
+                            <p class="text-sm">Wallet amount after deduction</p>
+                            <p class="text-sm text-right">KES. 39,309</p>
+                        </div>
+
+                        <!-- Action buttons -->
+
+                        <div class="flex w-full justify-end mt-16 gap-4 items-center">
+                            <!-- cancel -->
+                            <button
+                                class="px-4 py-2.5 bg-white hover:bg-gray-50 shadow-sm border rounded-lg border-gray-300 flex gap-x-2 items-center justify-center">
+                                <span class="text-sm font-semibold leading-tight text-slate-700">Cancel</span>
+                            </button>
+                            <!-- Send STK -->
+                            <button x-on:click="open = !open"
+                                class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm border rounded-lg border-blue-600 flex gap-x-2 items-center justify-center">
+                                <span class="text-sm font-semibold leading-tight text-white">Complete</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <!-- CARD UI -->
+                    <div x-cloak x-show="channel === 'card'">
+                        <div class="flex w-full justify-center">
+                            <!-- The Card Ui -->
+                            <div class='card-wrapper'></div>
+                        </div>
+                        <!-- Form for card input fields -->
+                        <form id="form" class="mt-3 space-y-2">
+                            <div class="space-y-1">
+                                <label for="cardHolderName"
+                                    class="text-sm font-medium leading-tight text-slate-700">Cardholder
+                                    name</label>
+                                <input type="text" name="full-name" id="cardHolderName"
+                                    class="block px-3 py-2 w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:border-transparent focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                                    placeholder="Enter cardholder name">
+                            </div>
+                            <div class="space-y-1">
+                                <label for="cardHolderName"
+                                    class="text-sm font-medium leading-tight text-slate-700">Card
+                                    number</label>
+                                <input type="text" name="card-number" id="cardNumber"
+                                    class="block px-3 py-2 w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:border-transparent focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                                    placeholder="Enter card number">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 items-start">
+                                <div class="space-y-1">
+                                    <label for="cardHolderName"
+                                        class="text-sm font-medium leading-tight text-slate-700">Expiry
+                                        date</label>
+                                    <input type="text" name="expiry-date" id="expiry"
+                                        class="block px-3 py-2 w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:border-transparent focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                                        placeholder="MM/YY">
+                                </div>
+                                <div class="space-y-1">
+                                    <label for="cardHolderName"
+                                        class="text-sm font-medium leading-tight text-slate-700">CVC/CVV</label>
+                                    <div class="relative mt-1 rounded-md shadow-sm">
+                                        <input type="text" name="cvc" id="cvc"
+                                            class="block w-full rounded-md px-3 py-2 border border-gray-300 pr-10 focus:border-blue-500 focus:border-transparent focus:ring-1 focus:ring-blue-500  sm:text-sm"
+                                            placeholder="...">
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_1243_18759)">
+                                                    <path
+                                                        d="M6.06 6.88081C6.21674 6.43525 6.5261 6.05955 6.93331 5.82023C7.34051 5.58091 7.81927 5.49343 8.28479 5.57328C8.75031 5.65313 9.17255 5.89516 9.47672 6.25649C9.78089 6.61783 9.94737 7.07516 9.94667 7.54748C9.94667 8.88081 7.94667 9.54748 7.94667 9.54748M8 12.2141H8.00667M14.6667 8.88081C14.6667 12.5627 11.6819 15.5475 8 15.5475C4.3181 15.5475 1.33334 12.5627 1.33334 8.88081C1.33334 5.19891 4.3181 2.21414 8 2.21414C11.6819 2.21414 14.6667 5.19891 14.6667 8.88081Z"
+                                                        stroke="#98A2B3" stroke-width="1.33333" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1243_18759">
+                                                        <rect width="16" height="16" fill="white"
+                                                            transform="translate(0 0.880798)"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Save Card details toggle -->
+                            <div class="flex items-center gap-3 pt-3" x-data="{toggle: '0'}">
+                                <div class="relative rounded-full w-12 h-6 transition duration-100 ease-linear"
+                                    :class="[toggle === '1' ? 'bg-blue-600' : 'bg-gray-300']">
+                                    <label for="toggle"
+                                        class="absolute left-0 bg-white border-2 mb-2 w-6 h-6 rounded-full transition transform duration-100 ease-linear cursor-pointer"
+                                        :class="[toggle === '1' ? 'translate-x-full border-blue-600' : 'translate-x-0 border-gray-300']"></label>
+                                    <input type="checkbox" id="toggle" name="toggle"
+                                        class="appearance-none w-full h-full active:outline-none focus:outline-none"
+                                        @click="toggle === '0' ? toggle = '1' : toggle = '0'" />
+                                </div>
+
+                                <label for="toggle"
+                                    class="text-sm font-medium leading-tight select-none text-slate-700">Save
+                                    this card
+                                    details </label>
+                            </div>
+
+
+
+                        </form>
+                        <!-- Action buttons -->
+
+                        <div class="flex w-full mt-16 justify-end gap-4 items-center">
+                            <!-- cancel -->
+                            <button
+                                class="px-4 py-2.5 bg-white hover:bg-gray-50 shadow-sm border rounded-lg border-gray-300 flex gap-x-2 items-center justify-center">
+                                <span class="text-sm font-semibold leading-tight text-slate-700">Cancel</span>
+                            </button>
+                            <!-- Pay -->
+                            <button x-on:click="open = !open"
+                                class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm border rounded-lg border-blue-600 flex gap-x-2 items-center justify-center">
+                                <span class="text-sm font-semibold leading-tight text-white">Pay</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- MPESA UI -->
+                    <div x-cloak x-show="channel === 'mpesa'">
+                        <p class="text-base font-semibold leading-7 mb-1 text-gray-900">Mpesa</p>
+                        <img src="./assets/svg/mpesaLarge.svg" alt="">
+                        <div class="flex flex-col justify-between">
+                            <form action="" class="mt-4">
+                                <div class="space-y-1">
+                                    <label for="cardHolderName"
+                                        class="text-sm font-medium leading-tight text-slate-700">Phone number </label>
+                                    <input type="text" name="cardHolderName" id="cardHolderName"
+                                        class="block px-3 py-2 w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:border-transparent focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                                        placeholder="Enter Phone number ">
+                                </div>
+                                <p class="text-sm mt-6 leading-snug">A pop-up will show on your phone asking for
+                                    payment. If
+                                    you don't receive the STK, you can still pay
+                                    <span>
+                                        <a href="" class="text-blue-500 hover:underline">here</a>
+                                    </span>
+                                    manually.
+                                </p>
+                            </form>
+
+                            <!-- Action buttons -->
+
+                            <div class="flex w-full justify-end mt-16 gap-4 items-center">
+                                <!-- cancel -->
+                                <button
+                                    class="px-4 py-2.5 bg-white hover:bg-gray-50 shadow-sm border rounded-lg border-gray-300 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-slate-700">Cancel</span>
+                                </button>
+                                <!-- Send STK -->
+                                <button x-on:click="open = !open"
+                                    class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm border rounded-lg border-blue-600 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-white">Send STK</span>
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- Airtel UI -->
+                    <div x-cloak x-show="channel === 'airtel'">
+                        <p class="text-base font-semibold leading-7 mb-1 text-gray-900">Airtel</p>
+                        <img src="./assets/svg/airtelLarge.svg" alt="">
+                        <div class="flex flex-col justify-between">
+                            <!-- Instructions -->
+                            <ul class="list-decimal text-sm mx-4 mt-6 space-y-1">
+                                <li>Go to M-PESA on your phone</li>
+                                <li>Select Pay Bill option</li>
+                                <li>Enter Business no. <span class="font-bold">206206</span></li>
+                                <li>Enter Account no. <span class="font-bold">YAFEOGL</span></li>
+                                <li>Enter the amount <span class="font-bold">KES 45,000</span></li>
+                                <li>Enter your airtel money PIN and Send</li>
+                                <li>You will receive a confirmation SMS from airtel</li>
+                            </ul>
+                            <p class="text-sm mt-6 leading-snug">Make payment through the steps shown above and click
+                                Complete.
+                            </p>
+                            <!--  -->
+                            <!-- Action buttons -->
+                            <div class="flex w-full justify-end mt-16 gap-4 items-center">
+                                <!-- cancel -->
+                                <button
+                                    class="px-4 py-2.5 bg-white hover:bg-gray-50 shadow-sm border rounded-lg border-gray-300 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-slate-700">Cancel</span>
+                                </button>
+                                <!-- Complete -->
+                                <button x-on:click="error = true , open = !open"
+                                    class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm border rounded-lg border-blue-600 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-white">Complete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PesaLink UI -->
+                    <div x-cloak x-show="channel === 'pesalink'">
+                        <p class="text-base font-semibold leading-7 mb-1 text-gray-900">Pesa Link </p>
+                        <img src="./assets/svg/pesalinkLarge.svg" alt="">
+                        <div class="flex flex-col justify-between">
+                            <!-- Instructions -->
+                            <ul class="list-decimal text-sm mx-4 mt-6 space-y-1">
+                                <li>Log in to your Bank App or USSD</li>
+                                <li>Select Pesalink</li>
+                                <li>Go to “Send to Phone” option</li>
+                                <li>Type 206206 as the phone number.</li>
+                                <li>Select Bank</li>
+                                <li>Enter the amount <span class="font-bold">KES 45,000</span></li>
+                                <li>Reason for payment enter:<span class="font-bold"> YAFEOGL</span></li>
+                                <li>Complete the transaction</li>
+                                <li>You will receive an SMS confirmation from Pesalink (if your number is linked) and
+                                    also from your bank.</li>
+                            </ul>
+
+                            <p class="text-sm mt-6 leading-snug">Make payment through the steps shown above and click
+                                Complete.
+                            </p>
+
+                            <!--  -->
+
+                            <!-- Action buttons -->
+
+                            <div class="flex w-full justify-end mt-16 gap-4 items-center">
+                                <!-- cancel -->
+                                <button
+                                    class="px-4 py-2.5 bg-white hover:bg-gray-50 shadow-sm border rounded-lg border-gray-300 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-slate-700">Cancel</span>
+                                </button>
+                                <!-- Complete -->
+                                <button
+                                    class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 hover:border-blue-700 shadow-sm border rounded-lg border-blue-600 flex gap-x-2 items-center justify-center">
+                                    <span class="text-sm font-semibold leading-tight text-white">Complete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment alert -->
+        <div x-show="open" x-init="setTimeout(() => {
+                open = false;
+        }, 7000);" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="translate-x-7 scale-90" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 translate-x-7 scale-90"
+            :class="[error ? 'border-red-500 text-red-700 bg-red-50' : 'border-green-400 text-emerald-700 bg-green-50']"
+            class="absolute z-[999] top-6 px-4 py-4 w-[300px] border rounded-lg  right-6 transition-all ease-in-out duration-300">
+            <div class="flex justify-between items-center mb-3">
+                <div>
+                    <svg x-show="!error" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1346_18469)">
+                            <path
+                                d="M6.25002 10L8.75002 12.5L13.75 7.5M18.3334 10C18.3334 14.6024 14.6024 18.3333 10 18.3333C5.39765 18.3333 1.66669 14.6024 1.66669 10C1.66669 5.39763 5.39765 1.66667 10 1.66667C14.6024 1.66667 18.3334 5.39763 18.3334 10Z"
+                                stroke="#039855" stroke-width="1.66667" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1346_18469">
+                                <rect width="20" height="20" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <svg x-show="error" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1346_19001)">
+                            <path
+                                d="M10 6.66663V9.99996M10 13.3333H10.0084M18.3334 9.99996C18.3334 14.6023 14.6024 18.3333 10 18.3333C5.39765 18.3333 1.66669 14.6023 1.66669 9.99996C1.66669 5.39759 5.39765 1.66663 10 1.66663C14.6024 1.66663 18.3334 5.39759 18.3334 9.99996Z"
+                                stroke="#D92D20" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1346_19001">
+                                <rect width="20" height="20" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Close button -->
+                <button x-on:click="open = false"
+                    :class="[error ? 'text-red-500 hover:text-red-700' : 'text-green-500 hover:text-green-700']"
+                    class="">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.66667"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <!--  -->
+            </div>
+            <!-- Message -->
+            <p class="text-sm font-semibold leading-tight w-full mb-1">STK Successfully Sent</p>
+            <p class="text-sm leading-[18px]  w-full">STK has been sent to the provided phone number for
+                payment. Kindly check your phone. </p>
+        </div>
+        <!--  -->
+    </main>
+
+    <!--  -->
+    <script src="./js/card.js"></script>
+    <script>
+        var card = new Card({
+            // a selector or DOM element for the form where users will
+            // be entering their information
+            form: 'form', // *required*
+            // a selector or DOM element for the container
+            // where you want the card to appear
+            container: '.card-wrapper', // *required*
+
+            formSelectors: {
+                numberInput: 'input[name="card-number"]', // optional — default input[name="number"]
+                expiryInput: 'input[name="expiry-date"]', // optional — default input[name="expiry"]
+                cvcInput: 'input[name="cvc"]', // optional — default input[name="cvc"]
+                nameInput: 'input[name="full-name"]' // optional - defaults input[name="name"]
+            },
+
+            width: 350, // optional — default 350px
+            formatting: true, // optional - default true
+
+            // Strings for translation - optional
+            messages: {
+                validDate: 'valid\ndate', // optional - default 'valid\nthru'
+                monthYear: 'mm/yyyy', // optional - default 'month/year'
+            },
+
+            // Default placeholders for rendered fields - optional
+            placeholders: {
+                number: '•••• •••• •••• ••••',
+                name: 'Full Name',
+                expiry: '••/••',
+                cvc: '•••'
+            },
+
+            masks: {
+                cardNumber: '•',// optional - mask card number
+            },
+
+            // if true, will log helpful messages for setting up Card
+            debug: false // optional - default false
+        });
+    </script>
+</body>
+
+</html>
